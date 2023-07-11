@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = null;
+}
+@model WebTTTT.Models.KhachHang
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Login</title>
+    <link href="~/Content/Admin/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Admin/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/Admin/css/sb-admin.css" rel="stylesheet">
+</head>
+
+<body class="bg-dark">
+    <div class="container">
+        <div class="card card-login mx-auto mt-5">
+            <div class="card-header">
+                <div id="btn"></div>
+                <button type="button" class="toggle-btn">Đăng Nhập</button>
+                <a href="@Url.Action("Register","Accounts")" class="toggle-btn">Đăng kí tài khoản</a>
+            </div>
+            <div class="card-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true)
+                    <div class="form-group">
+                        <label for="exampleInputEmail1"><h5>Tên Đăng Nhập</h5></label>
+                        @Html.TextBoxFor(u => u.taiKhoan, null, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(u => u.taiKhoan)
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1" values="margin-top:20px"><h5>Mật Khẩu</h5></label>
+                        @Html.PasswordFor(u => u.matKhau, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(u => u.matKhau)
+                    </div>
+                    <input class="btn btn-primary btn-block" type="submit" value="Đăng Nhập" />
+                }
+                <br />
+
+
+            </div>
+
+        </div>
+
+    </div>
+    <script src="~/Content/Admin/vendor/jquery/jquery.min.js"></script>
+    <script src="~/Content/Admin/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Content/Admin/vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script>
+        const loginButton = document.querySelector('.toggle-btn');
+        loginButton.addEventListener('click', function () {
+            // Hiển thị overlay và loader
+            overlay.style.display = 'block';
+            loader.style.display = 'block';
+
+            // Simulate delay
+            setTimeout(function () {
+                // Chuyển trang sau khi delay
+                window.location.href = 'login.html';
+            }, 2000); // Thay đổi giá trị 2000 thành thời gian delay mong muốn (đơn vị: milliseconds)
+        });
+    </script>
+</body>
+
+</html>

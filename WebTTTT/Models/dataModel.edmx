@@ -1,0 +1,684 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="QlyTheThaoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ChucVu">
+          <Key>
+            <PropertyRef Name="maCV" />
+          </Key>
+          <Property Name="maCV" Type="int" Nullable="false" />
+          <Property Name="tenCV" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="maHD" />
+          </Key>
+          <Property Name="maHD" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ngayLapHD" Type="date" Nullable="false" />
+          <Property Name="maPT" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="maKH" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="maKH" />
+          </Key>
+          <Property Name="maKH" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="hoTenKH" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="emailKH" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sdtKH" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="diaChiKH" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="taiKhoan" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="matKhau" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LapHoaDon">
+          <Key>
+            <PropertyRef Name="maNV" />
+            <PropertyRef Name="maHD" />
+          </Key>
+          <Property Name="tongTien" Type="int" Nullable="false" />
+          <Property Name="tenNVlapHD" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="maNV" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="maHD" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LapPhieu">
+          <Key>
+            <PropertyRef Name="maNV" />
+            <PropertyRef Name="maPT" />
+          </Key>
+          <Property Name="soGioThue" Type="int" Nullable="false" />
+          <Property Name="NgayThue" Type="date" Nullable="false" />
+          <Property Name="tenNVlapPhieu" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="tenSanThue" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="maNV" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="maPT" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="maNV" />
+          </Key>
+          <Property Name="maNV" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="hotenNV" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="emailNV" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="sdtNV" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="diaChiNV" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="dobNV" Type="date" Nullable="false" />
+          <Property Name="ngayVaoLam" Type="date" Nullable="false" />
+          <Property Name="maPH" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="maCV" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhieuThueSan">
+          <Key>
+            <PropertyRef Name="maPT" />
+          </Key>
+          <Property Name="maPT" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="ngayLapPhieu" Type="date" Nullable="false" />
+          <Property Name="maSan" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="maKH" Type="char" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PhongBan">
+          <Key>
+            <PropertyRef Name="maPH" />
+          </Key>
+          <Property Name="maPH" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="tenPH" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="mota" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="soNV" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="San">
+          <Key>
+            <PropertyRef Name="maSan" />
+          </Key>
+          <Property Name="maSan" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="tenSan" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="theLoai" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="giaThue" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__HoaDon__maKH__34C8D9D1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="maKH" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="maKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__maPT__33D4B598">
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThueSan">
+              <PropertyRef Name="maPT" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="maPT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapHoaDon__maHD__3C69FB99">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
+          <End Role="LapHoaDon" Type="Self.LapHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="maHD" />
+            </Principal>
+            <Dependent Role="LapHoaDon">
+              <PropertyRef Name="maHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapHoaDon__maNV__3B75D760">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="LapHoaDon" Type="Self.LapHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="maNV" />
+            </Principal>
+            <Dependent Role="LapHoaDon">
+              <PropertyRef Name="maNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapPhieu__maNV__37A5467C">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="LapPhieu" Type="Self.LapPhieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="maNV" />
+            </Principal>
+            <Dependent Role="LapPhieu">
+              <PropertyRef Name="maNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapPhieu__maPT__38996AB5">
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="1" />
+          <End Role="LapPhieu" Type="Self.LapPhieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThueSan">
+              <PropertyRef Name="maPT" />
+            </Principal>
+            <Dependent Role="LapPhieu">
+              <PropertyRef Name="maPT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__maCV__30F848ED">
+          <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucVu">
+              <PropertyRef Name="maCV" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maCV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__maPH__300424B4">
+          <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhongBan">
+              <PropertyRef Name="maPH" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhieuThue__maSan__2A4B4B5E">
+          <End Role="San" Type="Self.San" Multiplicity="1" />
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="San">
+              <PropertyRef Name="maSan" />
+            </Principal>
+            <Dependent Role="PhieuThueSan">
+              <PropertyRef Name="maSan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhieuThueS__maKH__2B3F6F97">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="maKH" />
+            </Principal>
+            <Dependent Role="PhieuThueSan">
+              <PropertyRef Name="maKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QlyTheThaoModelStoreContainer">
+          <EntitySet Name="ChucVu" EntityType="Self.ChucVu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDon" EntityType="Self.HoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LapHoaDon" EntityType="Self.LapHoaDon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LapPhieu" EntityType="Self.LapPhieu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhieuThueSan" EntityType="Self.PhieuThueSan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PhongBan" EntityType="Self.PhongBan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="San" EntityType="Self.San" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__HoaDon__maKH__34C8D9D1" Association="Self.FK__HoaDon__maKH__34C8D9D1">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__maPT__33D4B598" Association="Self.FK__HoaDon__maPT__33D4B598">
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSan" />
+            <End Role="HoaDon" EntitySet="HoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapHoaDon__maHD__3C69FB99" Association="Self.FK__LapHoaDon__maHD__3C69FB99">
+            <End Role="HoaDon" EntitySet="HoaDon" />
+            <End Role="LapHoaDon" EntitySet="LapHoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapHoaDon__maNV__3B75D760" Association="Self.FK__LapHoaDon__maNV__3B75D760">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="LapHoaDon" EntitySet="LapHoaDon" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapPhieu__maNV__37A5467C" Association="Self.FK__LapPhieu__maNV__37A5467C">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="LapPhieu" EntitySet="LapPhieu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapPhieu__maPT__38996AB5" Association="Self.FK__LapPhieu__maPT__38996AB5">
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSan" />
+            <End Role="LapPhieu" EntitySet="LapPhieu" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__maCV__30F848ED" Association="Self.FK__NhanVien__maCV__30F848ED">
+            <End Role="ChucVu" EntitySet="ChucVu" />
+            <End Role="NhanVien" EntitySet="NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__maPH__300424B4" Association="Self.FK__NhanVien__maPH__300424B4">
+            <End Role="PhongBan" EntitySet="PhongBan" />
+            <End Role="NhanVien" EntitySet="NhanVien" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhieuThue__maSan__2A4B4B5E" Association="Self.FK__PhieuThue__maSan__2A4B4B5E">
+            <End Role="San" EntitySet="San" />
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSan" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhieuThueS__maKH__2B3F6F97" Association="Self.FK__PhieuThueS__maKH__2B3F6F97">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSan" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="QlyTheThaoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ChucVu">
+          <Key>
+            <PropertyRef Name="maCV" />
+          </Key>
+          <Property Name="maCV" Type="Int32" Nullable="false" />
+          <Property Name="tenCV" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NhanViens" Relationship="Self.FK__NhanVien__maCV__30F848ED" FromRole="ChucVu" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="HoaDon">
+          <Key>
+            <PropertyRef Name="maHD" />
+          </Key>
+          <Property Name="maHD" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ngayLapHD" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="maPT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="maKH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__HoaDon__maKH__34C8D9D1" FromRole="HoaDon" ToRole="KhachHang" />
+          <NavigationProperty Name="PhieuThueSan" Relationship="Self.FK__HoaDon__maPT__33D4B598" FromRole="HoaDon" ToRole="PhieuThueSan" />
+          <NavigationProperty Name="LapHoaDons" Relationship="Self.FK__LapHoaDon__maHD__3C69FB99" FromRole="HoaDon" ToRole="LapHoaDon" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="maKH" />
+          </Key>
+          <Property Name="maKH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="hoTenKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="emailKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sdtKH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="diaChiKH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="taiKhoan" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="matKhau" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK__HoaDon__maKH__34C8D9D1" FromRole="KhachHang" ToRole="HoaDon" />
+          <NavigationProperty Name="PhieuThueSans" Relationship="Self.FK__PhieuThueS__maKH__2B3F6F97" FromRole="KhachHang" ToRole="PhieuThueSan" />
+        </EntityType>
+        <EntityType Name="LapHoaDon">
+          <Key>
+            <PropertyRef Name="maNV" />
+            <PropertyRef Name="maHD" />
+          </Key>
+          <Property Name="tongTien" Type="Int32" Nullable="false" />
+          <Property Name="tenNVlapHD" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="maNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="maHD" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HoaDon" Relationship="Self.FK__LapHoaDon__maHD__3C69FB99" FromRole="LapHoaDon" ToRole="HoaDon" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__LapHoaDon__maNV__3B75D760" FromRole="LapHoaDon" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="LapPhieu">
+          <Key>
+            <PropertyRef Name="maNV" />
+            <PropertyRef Name="maPT" />
+          </Key>
+          <Property Name="soGioThue" Type="Int32" Nullable="false" />
+          <Property Name="NgayThue" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="tenNVlapPhieu" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="tenSanThue" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="maNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="maPT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK__LapPhieu__maNV__37A5467C" FromRole="LapPhieu" ToRole="NhanVien" />
+          <NavigationProperty Name="PhieuThueSan" Relationship="Self.FK__LapPhieu__maPT__38996AB5" FromRole="LapPhieu" ToRole="PhieuThueSan" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="maNV" />
+          </Key>
+          <Property Name="maNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="hotenNV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="emailNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="sdtNV" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="diaChiNV" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="dobNV" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ngayVaoLam" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="maPH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="maCV" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="ChucVu" Relationship="Self.FK__NhanVien__maCV__30F848ED" FromRole="NhanVien" ToRole="ChucVu" />
+          <NavigationProperty Name="LapHoaDons" Relationship="Self.FK__LapHoaDon__maNV__3B75D760" FromRole="NhanVien" ToRole="LapHoaDon" />
+          <NavigationProperty Name="LapPhieux" Relationship="Self.FK__LapPhieu__maNV__37A5467C" FromRole="NhanVien" ToRole="LapPhieu" />
+          <NavigationProperty Name="PhongBan" Relationship="Self.FK__NhanVien__maPH__300424B4" FromRole="NhanVien" ToRole="PhongBan" />
+        </EntityType>
+        <EntityType Name="PhieuThueSan">
+          <Key>
+            <PropertyRef Name="maPT" />
+          </Key>
+          <Property Name="maPT" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="ngayLapPhieu" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="maSan" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="maKH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="HoaDons" Relationship="Self.FK__HoaDon__maPT__33D4B598" FromRole="PhieuThueSan" ToRole="HoaDon" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK__PhieuThueS__maKH__2B3F6F97" FromRole="PhieuThueSan" ToRole="KhachHang" />
+          <NavigationProperty Name="LapPhieux" Relationship="Self.FK__LapPhieu__maPT__38996AB5" FromRole="PhieuThueSan" ToRole="LapPhieu" />
+          <NavigationProperty Name="San" Relationship="Self.FK__PhieuThue__maSan__2A4B4B5E" FromRole="PhieuThueSan" ToRole="San" />
+        </EntityType>
+        <EntityType Name="PhongBan">
+          <Key>
+            <PropertyRef Name="maPH" />
+          </Key>
+          <Property Name="maPH" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="tenPH" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="mota" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="soNV" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="NhanViens" Relationship="Self.FK__NhanVien__maPH__300424B4" FromRole="PhongBan" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="San">
+          <Key>
+            <PropertyRef Name="maSan" />
+          </Key>
+          <Property Name="maSan" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="tenSan" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="theLoai" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="giaThue" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PhieuThueSans" Relationship="Self.FK__PhieuThue__maSan__2A4B4B5E" FromRole="San" ToRole="PhieuThueSan" />
+        </EntityType>
+        <Association Name="FK__NhanVien__maCV__30F848ED">
+          <End Role="ChucVu" Type="Self.ChucVu" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ChucVu">
+              <PropertyRef Name="maCV" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maCV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__maKH__34C8D9D1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="maKH" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="maKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__HoaDon__maPT__33D4B598">
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="1" />
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThueSan">
+              <PropertyRef Name="maPT" />
+            </Principal>
+            <Dependent Role="HoaDon">
+              <PropertyRef Name="maPT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapHoaDon__maHD__3C69FB99">
+          <End Role="HoaDon" Type="Self.HoaDon" Multiplicity="1" />
+          <End Role="LapHoaDon" Type="Self.LapHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDon">
+              <PropertyRef Name="maHD" />
+            </Principal>
+            <Dependent Role="LapHoaDon">
+              <PropertyRef Name="maHD" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhieuThueS__maKH__2B3F6F97">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="1" />
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="maKH" />
+            </Principal>
+            <Dependent Role="PhieuThueSan">
+              <PropertyRef Name="maKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapHoaDon__maNV__3B75D760">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="LapHoaDon" Type="Self.LapHoaDon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="maNV" />
+            </Principal>
+            <Dependent Role="LapHoaDon">
+              <PropertyRef Name="maNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapPhieu__maNV__37A5467C">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="1" />
+          <End Role="LapPhieu" Type="Self.LapPhieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="maNV" />
+            </Principal>
+            <Dependent Role="LapPhieu">
+              <PropertyRef Name="maNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LapPhieu__maPT__38996AB5">
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="1" />
+          <End Role="LapPhieu" Type="Self.LapPhieu" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhieuThueSan">
+              <PropertyRef Name="maPT" />
+            </Principal>
+            <Dependent Role="LapPhieu">
+              <PropertyRef Name="maPT" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__NhanVien__maPH__300424B4">
+          <End Role="PhongBan" Type="Self.PhongBan" Multiplicity="1" />
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PhongBan">
+              <PropertyRef Name="maPH" />
+            </Principal>
+            <Dependent Role="NhanVien">
+              <PropertyRef Name="maPH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PhieuThue__maSan__2A4B4B5E">
+          <End Role="San" Type="Self.San" Multiplicity="1" />
+          <End Role="PhieuThueSan" Type="Self.PhieuThueSan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="San">
+              <PropertyRef Name="maSan" />
+            </Principal>
+            <Dependent Role="PhieuThueSan">
+              <PropertyRef Name="maSan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="QlyTheThaoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ChucVus" EntityType="Self.ChucVu" />
+          <EntitySet Name="HoaDons" EntityType="Self.HoaDon" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="LapHoaDons" EntityType="Self.LapHoaDon" />
+          <EntitySet Name="LapPhieux" EntityType="Self.LapPhieu" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="PhieuThueSans" EntityType="Self.PhieuThueSan" />
+          <EntitySet Name="PhongBans" EntityType="Self.PhongBan" />
+          <EntitySet Name="Sans" EntityType="Self.San" />
+          <AssociationSet Name="FK__NhanVien__maCV__30F848ED" Association="Self.FK__NhanVien__maCV__30F848ED">
+            <End Role="ChucVu" EntitySet="ChucVus" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__maKH__34C8D9D1" Association="Self.FK__HoaDon__maKH__34C8D9D1">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__HoaDon__maPT__33D4B598" Association="Self.FK__HoaDon__maPT__33D4B598">
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSans" />
+            <End Role="HoaDon" EntitySet="HoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapHoaDon__maHD__3C69FB99" Association="Self.FK__LapHoaDon__maHD__3C69FB99">
+            <End Role="HoaDon" EntitySet="HoaDons" />
+            <End Role="LapHoaDon" EntitySet="LapHoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhieuThueS__maKH__2B3F6F97" Association="Self.FK__PhieuThueS__maKH__2B3F6F97">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSans" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapHoaDon__maNV__3B75D760" Association="Self.FK__LapHoaDon__maNV__3B75D760">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="LapHoaDon" EntitySet="LapHoaDons" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapPhieu__maNV__37A5467C" Association="Self.FK__LapPhieu__maNV__37A5467C">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="LapPhieu" EntitySet="LapPhieux" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LapPhieu__maPT__38996AB5" Association="Self.FK__LapPhieu__maPT__38996AB5">
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSans" />
+            <End Role="LapPhieu" EntitySet="LapPhieux" />
+          </AssociationSet>
+          <AssociationSet Name="FK__NhanVien__maPH__300424B4" Association="Self.FK__NhanVien__maPH__300424B4">
+            <End Role="PhongBan" EntitySet="PhongBans" />
+            <End Role="NhanVien" EntitySet="NhanViens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PhieuThue__maSan__2A4B4B5E" Association="Self.FK__PhieuThue__maSan__2A4B4B5E">
+            <End Role="San" EntitySet="Sans" />
+            <End Role="PhieuThueSan" EntitySet="PhieuThueSans" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="QlyTheThaoModelStoreContainer" CdmEntityContainer="QlyTheThaoEntities">
+          <EntitySetMapping Name="ChucVus">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.ChucVu">
+              <MappingFragment StoreEntitySet="ChucVu">
+                <ScalarProperty Name="maCV" ColumnName="maCV" />
+                <ScalarProperty Name="tenCV" ColumnName="tenCV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDons">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.HoaDon">
+              <MappingFragment StoreEntitySet="HoaDon">
+                <ScalarProperty Name="maHD" ColumnName="maHD" />
+                <ScalarProperty Name="ngayLapHD" ColumnName="ngayLapHD" />
+                <ScalarProperty Name="maPT" ColumnName="maPT" />
+                <ScalarProperty Name="maKH" ColumnName="maKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="maKH" ColumnName="maKH" />
+                <ScalarProperty Name="hoTenKH" ColumnName="hoTenKH" />
+                <ScalarProperty Name="emailKH" ColumnName="emailKH" />
+                <ScalarProperty Name="sdtKH" ColumnName="sdtKH" />
+                <ScalarProperty Name="diaChiKH" ColumnName="diaChiKH" />
+                <ScalarProperty Name="taiKhoan" ColumnName="taiKhoan" />
+                <ScalarProperty Name="matKhau" ColumnName="matKhau" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LapHoaDons">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.LapHoaDon">
+              <MappingFragment StoreEntitySet="LapHoaDon">
+                <ScalarProperty Name="tongTien" ColumnName="tongTien" />
+                <ScalarProperty Name="tenNVlapHD" ColumnName="tenNVlapHD" />
+                <ScalarProperty Name="maNV" ColumnName="maNV" />
+                <ScalarProperty Name="maHD" ColumnName="maHD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LapPhieux">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.LapPhieu">
+              <MappingFragment StoreEntitySet="LapPhieu">
+                <ScalarProperty Name="soGioThue" ColumnName="soGioThue" />
+                <ScalarProperty Name="NgayThue" ColumnName="NgayThue" />
+                <ScalarProperty Name="tenNVlapPhieu" ColumnName="tenNVlapPhieu" />
+                <ScalarProperty Name="tenSanThue" ColumnName="tenSanThue" />
+                <ScalarProperty Name="maNV" ColumnName="maNV" />
+                <ScalarProperty Name="maPT" ColumnName="maPT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="maNV" ColumnName="maNV" />
+                <ScalarProperty Name="hotenNV" ColumnName="hotenNV" />
+                <ScalarProperty Name="emailNV" ColumnName="emailNV" />
+                <ScalarProperty Name="sdtNV" ColumnName="sdtNV" />
+                <ScalarProperty Name="diaChiNV" ColumnName="diaChiNV" />
+                <ScalarProperty Name="dobNV" ColumnName="dobNV" />
+                <ScalarProperty Name="ngayVaoLam" ColumnName="ngayVaoLam" />
+                <ScalarProperty Name="maPH" ColumnName="maPH" />
+                <ScalarProperty Name="maCV" ColumnName="maCV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhieuThueSans">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.PhieuThueSan">
+              <MappingFragment StoreEntitySet="PhieuThueSan">
+                <ScalarProperty Name="maPT" ColumnName="maPT" />
+                <ScalarProperty Name="ngayLapPhieu" ColumnName="ngayLapPhieu" />
+                <ScalarProperty Name="maSan" ColumnName="maSan" />
+                <ScalarProperty Name="maKH" ColumnName="maKH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PhongBans">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.PhongBan">
+              <MappingFragment StoreEntitySet="PhongBan">
+                <ScalarProperty Name="maPH" ColumnName="maPH" />
+                <ScalarProperty Name="tenPH" ColumnName="tenPH" />
+                <ScalarProperty Name="mota" ColumnName="mota" />
+                <ScalarProperty Name="soNV" ColumnName="soNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sans">
+            <EntityTypeMapping TypeName="QlyTheThaoModel.San">
+              <MappingFragment StoreEntitySet="San">
+                <ScalarProperty Name="maSan" ColumnName="maSan" />
+                <ScalarProperty Name="tenSan" ColumnName="tenSan" />
+                <ScalarProperty Name="theLoai" ColumnName="theLoai" />
+                <ScalarProperty Name="giaThue" ColumnName="giaThue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
